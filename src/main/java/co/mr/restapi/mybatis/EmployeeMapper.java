@@ -20,4 +20,9 @@ public interface EmployeeMapper {
     @ResultMap("EmployeeMap") // 매핑관계의 재사용
     @Select("select * from employee where id=#{id}")
     Employee getById(@Param("id") int id);
+
+    // employee목록을 얻어오는 API
+    @Select("select * from employee where company_id=#{companyId}")
+    @ResultMap("EmployeeMap")
+    List<Employee> getByCompanyId(@Param("companyId") int companyId);
 }

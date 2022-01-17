@@ -2,6 +2,7 @@ package co.mr.restapi.controller;
 
 import co.mr.restapi.model.Company;
 import co.mr.restapi.mybatis.CompanyMapper;
+import co.mr.restapi.service.CompanyService;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -17,6 +18,9 @@ public class CompanyController {
     @Autowired
     private CompanyMapper companyMapper;
 
+    @Autowired
+    private CompanyService companyService;
+
     @PostMapping("")
     public Company post(@RequestBody Company company) {
         companyMapper.insert(company);
@@ -25,7 +29,8 @@ public class CompanyController {
 
     @GetMapping("")
     public List<Company> getAll(){
-        return companyMapper.getAll();
+//        return companyMapper.getAll();
+        return companyService.getAll();
     }
 
     @GetMapping("/{id}")
