@@ -15,7 +15,18 @@ public interface CompanyMapper {
     @Select("select * from company")
     @Results(id="CompanyMap", value={
             @Result(property="name", column="company_name"),
-            @Result(property="address", column="company_address")
+            @Result(property="address", column="company_address"),
+//		파라미터 id를 이용해서 EmployeeMapper.getByCompanyId를 호출해서 전달된 결과를 employeeList에 매핑하라는 의미
+//		여기서 @Many(select="co.mr.web.EmployeeMapper.getByCompanyId")는 서브쿼리
+//		      서브쿼리에 co.mr.web.EmployeeMapper.getByCompanyId API를 이용하겠다는 의미
+
+//		이렇게 하면 CompanyController 에서 companyMapper.getAll()을 그대로 사용할 수 있다..
+//		즉, CompanyService에서 만든 getAll() 자바로직이 필요없다, 간단하게 아래 한줄만 입력하면된다는 의미이다.
+
+            // company의 id column을 의미함
+            @Result(property="employeeList",column="id", many=@Many(select="co.mr.restapi.mybatis.EmployeeMapper.getByCompanyId"))
+
+
     })
     List<Company> getAll();
 
